@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Đồng Hành Cảm Xúc</title>
+<title>AI Trò Chuyện</title>
 
 <style>
 
@@ -15,15 +15,15 @@
 }
 
 body{
-  background:linear-gradient(135deg,#c7d2fe,#ede9fe);
   height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
+  background:linear-gradient(135deg,#c7d2fe,#e9d5ff);
 }
 
 .chat-container{
-  width:420px;
+  width:430px;
   height:720px;
   background:white;
   border-radius:25px;
@@ -36,8 +36,8 @@ body{
 .header{
   background:#6366f1;
   color:white;
-  padding:18px;
   text-align:center;
+  padding:18px;
 }
 
 .header h2{
@@ -125,8 +125,8 @@ button:hover{
   text-align:center;
   padding:10px;
   font-size:12px;
-  color:#64748b;
   background:#f1f5f9;
+  color:#64748b;
 }
 
 .typing{
@@ -155,33 +155,40 @@ button:hover{
 <div class="chat-container">
 
   <div class="header">
-    <h2>AI Đồng Hành Cảm Xúc</h2>
-    <div class="status">Trò chuyện • Chia sẻ • Động viên 💙</div>
+    <h2>AI Trò Chuyện</h2>
+    <div class="status">
+      Trò chuyện • Tâm sự • Hài hước • Đồng hành 💙
+    </div>
   </div>
 
   <div class="chat-box" id="chatBox">
 
     <div class="message bot">
       <div class="bubble">
-        Xin chào 🌿<br><br>
-        Mình là AI đồng hành cảm xúc.  
+        Xin chào 👋<br><br>
+
+        Mình là AI trò chuyện đa năng 🤖<br><br>
+
         Bạn có thể:
         <br><br>
-        • Chia sẻ tâm trạng 💭<br>
-        • Xin lời động viên 💙<br>
-        • Kể truyện cười 😄<br>
-        • Hỏi cách giải tỏa cảm xúc 🌱
+
+        • Tâm sự cảm xúc 💙<br>
+        • Kể chuyện vui 😄<br>
+        • Hỏi lời khuyên 🌿<br>
+        • Tán gẫu mọi thứ ✨
       </div>
     </div>
 
   </div>
 
   <div class="note">
-    AI hỗ trợ trò chuyện tinh thần cơ bản và không thay thế chuyên gia tâm lý.
+    AI trò chuyện giải trí và hỗ trợ tinh thần cơ bản.
   </div>
 
   <div class="input-area">
-    <input type="text" id="userInput" placeholder="Hãy chia sẻ điều bạn đang nghĩ...">
+    <input type="text"
+      id="userInput"
+      placeholder="Nhập tin nhắn...">
     <button onclick="sendMessage()">Gửi</button>
   </div>
 
@@ -191,47 +198,6 @@ button:hover{
 
 const chatBox = document.getElementById("chatBox");
 
-const replies = {
-
-  sad: [
-    "Mình hiểu cảm giác buồn có thể khiến mọi thứ trở nên nặng nề 💙",
-    "Bạn đã cố gắng rất nhiều rồi 🌿",
-    "Đôi khi buồn chỉ là dấu hiệu cho thấy bạn đã chịu áp lực quá lâu.",
-    "Mình đang lắng nghe bạn đây 🤝"
-  ],
-
-  stress: [
-    "Có vẻ bạn đang chịu khá nhiều áp lực 🌱",
-    "Bạn không cần phải giải quyết mọi thứ cùng lúc.",
-    "Hãy thử nghỉ ngơi và hít thở sâu vài phút nhé 💫"
-  ],
-
-  lonely: [
-    "Cô đơn là cảm giác không dễ chịu 🤍",
-    "Bạn xứng đáng được lắng nghe và quan tâm.",
-    "Đôi khi chỉ cần một cuộc trò chuyện nhỏ cũng giúp lòng nhẹ hơn."
-  ],
-
-  happy: [
-    "Nghe bạn nói vậy mình cũng thấy vui theo 😄",
-    "Thật tuyệt khi bạn đang có cảm xúc tích cực 🌟",
-    "Hãy giữ năng lượng tốt đẹp này nhé 💫"
-  ],
-
-  tired: [
-    "Bạn đã mệt nhiều rồi phải không 🌿",
-    "Nghỉ ngơi cũng rất quan trọng 💙",
-    "Đừng ép bản thân phải mạnh mẽ mọi lúc."
-  ],
-
-  anxiety: [
-    "Lo lắng quá nhiều có thể khiến bạn kiệt sức 🌱",
-    "Hãy thử tập trung vào từng việc nhỏ nhé.",
-    "Mọi chuyện có thể sẽ ổn dần thôi 💙"
-  ]
-
-};
-
 const jokes = [
 
   "Giáo viên hỏi: 'Em có thuộc bài không?' — Học sinh: 'Dạ thuộc… nhưng thuộc bạn bên cạnh.' 😂",
@@ -240,9 +206,9 @@ const jokes = [
 
   "Người ta giảm cân bằng thể dục. Còn tôi giảm tiền bằng mua đồ ăn 😅",
 
-  "Học sinh: 'Em bị mất ngủ vì học nhiều.' — Thực tế: cầm điện thoại tới 2 giờ sáng 📱",
+  "Có một bạn hỏi: 'Cậu học giỏi toán không?' — Bạn kia trả lời: 'Tớ tính nghỉ học rồi.' 😭",
 
-  "Có một bạn hỏi: 'Cậu học giỏi toán không?' — Bạn kia trả lời: 'Tớ tính nghỉ học rồi.' 😭"
+  "Học sinh: 'Em bị mất ngủ vì học nhiều.' — Thực tế: cầm điện thoại tới 2 giờ sáng 📱"
 
 ];
 
@@ -250,18 +216,38 @@ const relaxTips = [
 
   "Bạn có thể thử nghe nhạc nhẹ hoặc đi dạo vài phút 🌿",
 
-  "Hít thở sâu chậm rãi vài lần có thể giúp cơ thể thư giãn hơn 💫",
+  "Hít thở sâu chậm rãi có thể giúp cơ thể thư giãn hơn 💫",
 
-  "Viết ra suy nghĩ của mình đôi khi giúp lòng nhẹ hơn 📝",
+  "Viết ra cảm xúc đôi khi giúp lòng nhẹ hơn 📝",
 
-  "Nghỉ ngơi và ngủ đủ giấc cũng rất quan trọng 💙",
+  "Ngủ đủ giấc cũng rất quan trọng 💙",
 
-  "Thử nói chuyện với người bạn tin tưởng nhé 🤝"
+  "Hãy thử nói chuyện với người bạn tin tưởng 🤝"
+
+];
+
+const normalReplies = [
+
+  "Mình đang lắng nghe bạn đây 💙",
+
+  "Nghe có vẻ thú vị đó 😄",
+
+  "Bạn có muốn kể thêm không?",
+
+  "Mình hiểu 🌿",
+
+  "Điều đó chắc hẳn khiến bạn suy nghĩ khá nhiều.",
+
+  "Bạn thấy thế nào về điều đó?",
+
+  "Mình thích trò chuyện với bạn ✨"
 
 ];
 
 function randomReply(arr){
+
   return arr[Math.floor(Math.random() * arr.length)];
+
 }
 
 function addMessage(text, sender){
@@ -305,11 +291,36 @@ function removeTyping(){
   if(typing){
     typing.remove();
   }
+
 }
 
 function getReply(message){
 
   const text = message.toLowerCase();
+
+  // CHÀO HỎI
+  if(
+    text.includes("xin chào") ||
+    text.includes("hello") ||
+    text.includes("hi")
+  ){
+    return "Xin chào 👋 Hôm nay bạn thế nào?";
+  }
+
+  // HỎI TÊN
+  if(
+    text.includes("tên gì") ||
+    text.includes("bạn là ai")
+  ){
+    return "Mình là AI trò chuyện và đồng hành cảm xúc 🤖";
+  }
+
+  // CẢM ƠN
+  if(
+    text.includes("cảm ơn")
+  ){
+    return "Không có gì 💙 Mình luôn sẵn sàng trò chuyện với bạn.";
+  }
 
   // TRUYỆN CƯỜI
   if(
@@ -320,23 +331,13 @@ function getReply(message){
     return randomReply(jokes);
   }
 
-  // GIẢI TỎA CẢM XÚC
-  if(
-    text.includes("giải tỏa") ||
-    text.includes("bớt buồn") ||
-    text.includes("thư giãn") ||
-    text.includes("ổn hơn")
-  ){
-    return randomReply(relaxTips);
-  }
-
   // BUỒN
   if(
     text.includes("buồn") ||
     text.includes("khóc") ||
     text.includes("thất vọng")
   ){
-    return randomReply(replies.sad);
+    return "Mình hiểu cảm giác đó có thể khá nặng nề 💙 Bạn muốn chia sẻ thêm không?";
   }
 
   // STRESS
@@ -345,7 +346,7 @@ function getReply(message){
     text.includes("áp lực") ||
     text.includes("căng thẳng")
   ){
-    return randomReply(replies.stress);
+    return "Có vẻ bạn đang chịu khá nhiều áp lực 🌿 Đừng quên dành thời gian nghỉ ngơi nhé.";
   }
 
   // CÔ ĐƠN
@@ -353,7 +354,7 @@ function getReply(message){
     text.includes("cô đơn") ||
     text.includes("một mình")
   ){
-    return randomReply(replies.lonely);
+    return "Bạn không hề một mình đâu 🤝 Mình vẫn đang lắng nghe bạn.";
   }
 
   // MỆT
@@ -361,15 +362,16 @@ function getReply(message){
     text.includes("mệt") ||
     text.includes("kiệt sức")
   ){
-    return randomReply(replies.tired);
+    return "Bạn đã cố gắng rất nhiều rồi 🌱 Nghỉ ngơi một chút cũng quan trọng.";
   }
 
-  // LO LẮNG
+  // GIẢI TỎA
   if(
-    text.includes("lo") ||
-    text.includes("sợ")
+    text.includes("giải tỏa") ||
+    text.includes("thư giãn") ||
+    text.includes("bớt buồn")
   ){
-    return randomReply(replies.anxiety);
+    return randomReply(relaxTips);
   }
 
   // VUI
@@ -377,17 +379,11 @@ function getReply(message){
     text.includes("vui") ||
     text.includes("hạnh phúc")
   ){
-    return randomReply(replies.happy);
+    return "Nghe bạn nói vậy mình cũng thấy vui theo 😄";
   }
 
-  // CẢM ƠN
-  if(
-    text.includes("cảm ơn")
-  ){
-    return "Mình luôn sẵn sàng lắng nghe bạn 💙";
-  }
+  return randomReply(normalReplies);
 
-  return "Mình hiểu 🌿 Bạn có muốn chia sẻ thêm điều đang khiến bạn suy nghĩ không?";
 }
 
 function sendMessage(){
@@ -412,7 +408,7 @@ function sendMessage(){
 
     addMessage(reply, "bot");
 
-  }, 1200);
+  }, 1000);
 
 }
 
