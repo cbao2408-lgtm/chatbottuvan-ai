@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AI ChatGPT Clone</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI ChatGPT</title>
 
 <style>
 
@@ -18,39 +18,80 @@ body{
     background:#343541;
     height:100vh;
     display:flex;
-    justify-content:center;
-    align-items:center;
 }
 
-.chat-container{
-    width:100%;
-    max-width:900px;
-    height:95vh;
-    background:#444654;
+/* SIDEBAR */
+
+.sidebar{
+    width:260px;
+    background:#202123;
+    color:white;
     display:flex;
     flex-direction:column;
-    border-radius:12px;
-    overflow:hidden;
+    padding:15px;
+}
+
+.new-chat{
+    background:#343541;
+    border:1px solid #555;
+    padding:14px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:20px;
+    text-align:center;
+    transition:0.3s;
+}
+
+.new-chat:hover{
+    background:#444654;
+}
+
+.chat-history{
+    flex:1;
+    overflow-y:auto;
+}
+
+.history-item{
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.history-item:hover{
+    background:#343541;
+}
+
+/* MAIN */
+
+.main{
+    flex:1;
+    display:flex;
+    flex-direction:column;
 }
 
 .header{
-    background:#202123;
+    background:#444654;
     color:white;
     padding:18px;
     text-align:center;
     font-size:22px;
     font-weight:bold;
+    border-bottom:1px solid #555;
 }
 
 .chat-box{
     flex:1;
     overflow-y:auto;
-    padding:20px;
+    padding:25px;
 }
 
+/* MESSAGE */
+
 .message{
-    margin-bottom:20px;
     display:flex;
+    margin-bottom:20px;
 }
 
 .user{
@@ -63,7 +104,7 @@ body{
 
 .bubble{
     max-width:75%;
-    padding:15px;
+    padding:16px;
     border-radius:12px;
     line-height:1.6;
     font-size:16px;
@@ -75,20 +116,22 @@ body{
 }
 
 .bot .bubble{
-    background:#2d2f39;
+    background:#444654;
     color:white;
 }
 
+/* INPUT */
+
 .input-area{
-    display:flex;
-    padding:15px;
     background:#40414f;
+    padding:18px;
+    display:flex;
     gap:10px;
 }
 
 input{
     flex:1;
-    padding:15px;
+    padding:16px;
     border:none;
     border-radius:10px;
     background:#2d2f39;
@@ -100,9 +143,9 @@ input{
 button{
     background:#19c37d;
     border:none;
-    padding:15px 20px;
-    border-radius:10px;
     color:white;
+    padding:16px 22px;
+    border-radius:10px;
     cursor:pointer;
     font-size:16px;
     transition:0.3s;
@@ -114,8 +157,15 @@ button:hover{
 
 .typing{
     color:#aaa;
-    padding:10px 0;
-    font-size:14px;
+    margin-top:10px;
+}
+
+@media(max-width:700px){
+
+    .sidebar{
+        display:none;
+    }
+
 }
 
 </style>
@@ -123,31 +173,52 @@ button:hover{
 
 <body>
 
-<div class="chat-container">
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="new-chat" onclick="newChat()">
+        + Cuộc trò chuyện mới
+    </div>
+
+    <div class="chat-history" id="history">
+        <div class="history-item">
+            AI Chat
+        </div>
+    </div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
 
     <div class="header">
-        AI ChatGPT Clone
+        AI ChatGPT
     </div>
 
     <div class="chat-box" id="chatBox">
 
         <div class="message bot">
             <div class="bubble">
-                Xin chào 👋 Tôi là AI trò chuyện của bạn.
+                Xin chào 👋 Tôi là AI của bạn. Hãy hỏi tôi bất cứ điều gì.
             </div>
         </div>
 
     </div>
 
     <div class="input-area">
+
         <input 
             type="text" 
-            id="userInput" 
-            placeholder="Nhập tin nhắn..."
+            id="userInput"
+            placeholder="Nhập câu hỏi..."
         >
+
         <button onclick="sendMessage()">
             Gửi
         </button>
+
     </div>
 
 </div>
@@ -159,9 +230,11 @@ const chatBox = document.getElementById("chatBox");
 function addMessage(text, sender){
 
     const message = document.createElement("div");
+
     message.classList.add("message", sender);
 
     const bubble = document.createElement("div");
+
     bubble.classList.add("bubble");
 
     bubble.innerText = text;
@@ -173,31 +246,49 @@ function addMessage(text, sender){
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-function aiResponse(message){
+function aiReply(message){
 
     message = message.toLowerCase();
 
+    /* HỎI ĐÁP */
+
     if(message.includes("xin chào")){
-        return "Chào bạn 😄 Tôi có thể giúp gì cho bạn?";
+        return "Chào bạn 😄";
     }
 
     if(message.includes("bạn là ai")){
-        return "Tôi là AI trò chuyện được tạo bằng HTML, CSS và JavaScript 🤖";
+        return "Tôi là AI trò chuyện giống ChatGPT 🤖";
+    }
+
+    if(message.includes("html")){
+        return "HTML là ngôn ngữ tạo cấu trúc website 🌐";
+    }
+
+    if(message.includes("css")){
+        return "CSS giúp trang web đẹp hơn 🎨";
+    }
+
+    if(message.includes("javascript")){
+        return "JavaScript giúp website hoạt động thông minh ⚡";
     }
 
     if(message.includes("truyện cười")){
-        return "Tại sao lập trình viên thích mùa đông? Vì có nhiều bug được đóng băng 😆";
+        return "Lập trình viên đi khám bệnh. Bác sĩ hỏi: 'Anh bị sao?' — 'Em nghĩ là do thiếu RAM 😆'";
     }
 
     if(message.includes("buồn")){
-        return "Nếu bạn đang buồn, hãy thử nghỉ ngơi, nghe nhạc hoặc nói chuyện với người bạn tin tưởng 💙";
+        return "Bạn có thể nghỉ ngơi, nghe nhạc hoặc chia sẻ với người đáng tin 💙";
     }
 
     if(message.includes("code")){
-        return "Tôi có thể giúp bạn viết HTML, CSS, JavaScript và nhiều thứ khác 🚀";
+        return "Tôi có thể giúp bạn viết code HTML, CSS, JS 🚀";
     }
 
-    return "Tôi đang suy nghĩ 🤔";
+    if(message.includes("chatgpt")){
+        return "ChatGPT là AI trò chuyện thông minh được phát triển bởi OpenAI 🤖";
+    }
+
+    return "Tôi vẫn đang học thêm để trả lời thông minh hơn 🤔";
 }
 
 function sendMessage(){
@@ -228,11 +319,25 @@ function sendMessage(){
 
         document.getElementById("typing").remove();
 
-        const reply = aiResponse(text);
+        const reply = aiReply(text);
 
         addMessage(reply, "bot");
 
     }, 1000);
+
+}
+
+function newChat(){
+
+    chatBox.innerHTML = `
+
+        <div class="message bot">
+            <div class="bubble">
+                Cuộc trò chuyện mới đã bắt đầu 👋
+            </div>
+        </div>
+
+    `;
 }
 
 document.getElementById("userInput")
